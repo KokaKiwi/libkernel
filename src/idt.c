@@ -32,5 +32,5 @@ void init_idt()
     
     memcpy((void *) kidtr.base, (void *) kidt, kidtr.limit);
     
-    asm("lidtl (_kidtr)");
+    asm("lidtl (kidtr)");
 }

@@ -3,10 +3,10 @@ export QEMU     := /usr/fbin/qemu
 export NASM		:= nasm
 export CC		:= gcc
 export AR       := ar
-export ARTARG   := elf32-i386 #pe-i386 pei-i386 elf32-i386 elf32-little elf32-big srec symbolsrec verilog tekhex binary ihex
+export ARTARG   := pei-i386 #pe-i386 pei-i386 elf32-i386 elf32-little elf32-big srec symbolsrec verilog tekhex binary ihex
 export ARFLAGS  := rcs #--target=$(ARTARG)
 export INCDIRS  := include
-export CFLAGS   := -O3 -Os -nostartfiles -fno-builtin $(foreach incdir,$(INCDIRS),$(addprefix -I,$(incdir)))
+export CFLAGS   := -O3 -Os -m32 -nostartfiles -fno-builtin -fno-leading-underscore $(foreach incdir,$(INCDIRS),$(addprefix -I,$(incdir)))
 export CCFLAGS	:= -c -g $(CFLAGS)
 export CAFLAGS	:= -S $(CFLAGS)
 export OBJCOPY	:= objcopy

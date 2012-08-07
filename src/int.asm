@@ -1,5 +1,5 @@
-extern _isr_default_int, _isr_GP_exec, _isr_PF_exec, _isr_clock_int, _isr_keyboard_int
-global _asm_default_int, _asm_exec_GP, _asm_exec_PF, _asm_irq_0, _asm_irq_1
+extern isr_default_int, isr_GP_exec, isr_PF_exec, isr_clock_int, isr_keyboard_int
+global asm_default_int, asm_exec_GP, asm_exec_PF, asm_irq_0, asm_irq_1
 
 %macro SAVE_REGS 0
     pushad
@@ -21,39 +21,39 @@ global _asm_default_int, _asm_exec_GP, _asm_exec_PF, _asm_irq_0, _asm_irq_1
     popad
 %endmacro
 
-_asm_default_int:
+asm_default_int:
     SAVE_REGS
-    call _isr_default_int
+    call isr_default_int
     mov al, 0x20
     out 0x20, al
     RESTORE_REGS
     iret
 
-_asm_exec_GP:
+asm_exec_GP:
     SAVE_REGS
-    call _isr_GP_exec
+    call isr_GP_exec
     RESTORE_REGS
     add esp, 4
     iret
 
-_asm_exec_PF:
+asm_exec_PF:
     SAVE_REGS
-    call _isr_PF_exec
+    call isr_PF_exec
     RESTORE_REGS
     add esp, 4
     iret
 
-_asm_irq_0:
+asm_irq_0:
     SAVE_REGS
-    call _isr_clock_int
+    call isr_clock_int
     mov al, 0x20
     out 0x20, al
     RESTORE_REGS
     iret
 
-_asm_irq_1:
+asm_irq_1:
     SAVE_REGS
-    call _isr_keyboard_int
+    call isr_keyboard_int
     mov al, 0x20
     out 0x20, al
     RESTORE_REGS
