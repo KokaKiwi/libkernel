@@ -20,9 +20,9 @@ export A        := .a
 B				:= $(BUILDDIR)/
 S				:= $Basm/
 
-all             : $Blibkernel$A
+all             : $Blibkernel$A $Blibkernel.tar
 
-# Clib
+# Libkernel
 CSRC            := $(wildcard src/*.c)
 COBJS           := $(addprefix $B,$(notdir $(CSRC:.c=$O)))
 CASMS           := $(addprefix $S,$(notdir $(CSRC:.c=.asm)))
@@ -34,7 +34,12 @@ ALL_ASMS        := $(CASMS)
 cobj_compile    = $(1) : $(2); $(CC) $(CCFLAGS) -o $(1) $(2)
 aobj_compile    = $(1) : $(2); $(NASM) -f elf -o $(1) $(2)
 
-$Blibkernel$A        : $(ALL_OBJS); $(AR) $(ARFLAGS) $@ $^
+$Blibkernel$A   : $(ALL_OBJS) 
+	$(AR) $(ARFLAGS) $@ $^
+	ranlib $@
+
+$Blibkernel.tar : $(CSRC) $(ASRC)
+	tar -cf $@ -C src $(notdir $(CSRC)) $(notdir $(ASRC))
 
 $(foreach cobj,$(COBJS),$(eval $(call cobj_compile,$(cobj),$(addprefix src/,$(notdir $(cobj:$O=.c))))))
 $(foreach aobj,$(AOBJS),$(eval $(call aobj_compile,$(aobj),$(addprefix src/,$(notdir $(aobj:$O=.asm))))))

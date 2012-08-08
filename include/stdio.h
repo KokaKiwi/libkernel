@@ -10,7 +10,7 @@ extern void printf(const char*, ...);
 extern void println(const char*);
 extern int  sprintf(char*, const char*, ...);
 
-extern void std_keyhandler(uchar);
+extern void std_keyhandler(uchar, uchar);
 extern uchar getchar(void);
 
 #endif

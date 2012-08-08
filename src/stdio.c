@@ -1,34 +1,5 @@
 #include "stdio.h"
 
-void putchar(char c)
-{
-    /* char *vram = (char *) (RAMSCREEN + 2 * screenX + 160 * screenY);
-    switch (c)
-    {
-        case '\n':
-            screenX = 0;
-            screenY++;
-            break;
-        case 9:
-            screenX = screenX + 8 - (screenX % 8);
-            break;
-        case 13:
-            screenX = 0;
-            break;
-        default:
-            *vram = c;
-            *(vram + 1) = mask;
-            
-            screenX++;
-            if (screenX > 79)
-            {
-                screenX = 0;
-                screenY++;
-            }
-            break;
-    } */
-}
-
 void printf_putu(unsigned d, unsigned int radix)
 {
     static char buf[16] = { 0 };
@@ -141,7 +112,7 @@ int sprintf(char *str, const char *format, ...)
 uchar std_keybuffer[256];
 unsigned std_bufpointer = 0;
 
-void std_keyhandler(uchar c)
+void std_keyhandler(uchar i, uchar c)
 {
     if (std_bufpointer < 256)
     {
